@@ -180,14 +180,23 @@ require("./styles.css");
 var onClickAdd = function onClickAdd() {
   var inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
+  createIncompleteList(inputText);
+};
 
+// 未完了リストから指定の要素を削除
+var deleteFormIncompleteList = function deleteFormIncompleteList(target) {
+  document.getElementById("incomplete-list").removeChild(target);
+};
+
+// 未完了リストに追加する関数
+var createIncompleteList = function createIncompleteList(text) {
   // div生成
   var div = document.createElement("div");
   div.className = "list-row";
 
   // liタグ生成
   var li = document.createElement("li");
-  li.innerText = inputText;
+  li.innerText = text;
 
   // button（完了）タグ生成
   var completeButton = document.createElement("button");
@@ -212,6 +221,15 @@ var onClickAdd = function onClickAdd() {
     // buttonタグ生成
     var backButton = document.createElement("button");
     backButton.innerText = "戻す";
+    backButton.addEventListener("click", function () {
+      //  押された戻すボタンの親タグ（div）を完了リストから削除
+      var deleteTarget = backButton.parentNode;
+      document.getElementById("complete-list").removeChild(deleteTarget);
+
+      // テキスト取得
+      var text = backButton.parentNode.firstElementChild.innerText;
+      createIncompleteList(text);
+    });
 
     // divタグの子要素に各要素を設定
     addTarget.appendChild(li);
@@ -235,11 +253,6 @@ var onClickAdd = function onClickAdd() {
 
   // 未完了のリストに追加
   document.getElementById("incomplete-list").appendChild(div);
-};
-
-// 未完了リストから指定の要素を削除
-var deleteFormIncompleteList = function deleteFormIncompleteList(target) {
-  document.getElementById("incomplete-list").removeChild(target);
 };
 document.getElementById("add-button").addEventListener("click", function () {
   return onClickAdd();
@@ -269,7 +282,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36199" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32921" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
