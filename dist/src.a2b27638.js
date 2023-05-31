@@ -180,14 +180,23 @@ require("./styles.css");
 var onClickAdd = function onClickAdd() {
   var inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
+  createIncompleteList(inputText);
+};
 
+// 未完了リストから指定の要素を削除
+var deleteFormIncompleteList = function deleteFormIncompleteList(target) {
+  document.getElementById("incomplete-list").removeChild(target);
+};
+
+// 未完了リストに追加する関数
+var createIncompleteList = function createIncompleteList(text) {
   // div生成
   var div = document.createElement("div");
   div.className = "list-row";
 
   // liタグ生成
   var li = document.createElement("li");
-  li.innerText = inputText;
+  li.innerText = text;
 
   // button（完了）タグ生成
   var completeButton = document.createElement("button");
